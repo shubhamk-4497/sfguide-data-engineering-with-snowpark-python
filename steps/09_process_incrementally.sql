@@ -42,8 +42,13 @@ USE SCHEMA HARMONIZED;
 
 EXECUTE TASK ORDERS_UPDATE_TASK;
 
-
--- ----------------------------------------------------------------------------
+SELECT *
+FROM TABLE(INFORMATION_SCHEMA.TASK_HISTORY(
+    SCHEDULED_TIME_RANGE_START=>DATEADD('DAY',-1,CURRENT_TIMESTAMP()),
+    RESULT_LIMIT => 100))
+ORDER BY SCHEDULED_TIME DESC
+;
+------------------------------------------------------------
 -- Step #3: Monitor tasks in Snowsight
 -- ----------------------------------------------------------------------------
 
